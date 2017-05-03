@@ -1,0 +1,37 @@
+
+
+#upBtn{
+    position: relative;
+    display: block;
+    width: 8.8vw;
+    margin:auto;
+    margin-top: 5vh;
+}
+
+#rightBtn{
+    position: relative;
+    display: block;
+    width: 8.8vw;
+    margin:auto;
+    margin-top:-8.8vh;
+    margin-left: 54.5vw;
+}
+
+#leftBtn{
+    position: relative;
+    display: block;
+    width: 8.8vw;
+    margin:auto;
+    margin-right:54.5vw;
+
+}
+
+
+#downBtn{
+    position: relative;
+    display: block;
+    width: 8.8vw;
+    margin:auto;
+}
+
+

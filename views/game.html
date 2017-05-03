@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>My first three.js app</title>
+    <link rel="stylesheet" type="text/css" href="/css/style2.css">
+    <style>
+        body { margin: 0; }
+        canvas { width: 100%; height: 100% }
+        *{cursor:none;}
+    </style>
+</head>
+<body>
+<script src="/js/three.js"></script>
+<script src="/js/socket.io.js"></script>
+<img id="aim" src="/images/crossHair.png" height="75">
+
+<script>
+
+    var scene, camera, renderer;
+
+    var geometry;
+    var asteroids, player;
+
+    var raycaster, intersects;
+
+    var limit;
+    var playerSpeed = 0.3;
+
+    var NUM_VERTEX = 800;
+    var INTERSECTED;
+
+    var mouse;
+    var up, down, left, right;
+
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+
+    var socket = io();
+
+    init();
+    render();
+
+    socket.on('sending data', function(data){
+        console.log('receiving');
+        console.log(data);
+        onKeyDown(data);
+
+    });
+
+    socket.on('sending stop', function(data){
+        console.log('stopping');
+        console.log(data);
+        onKeyUp(data);
+
+    });
+
+    function init(){
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 3000 );
+
+        renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setClearColor(0x000000);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMapEnabled = true;
+        document.body.appendChild( renderer.domElement );
+
+        camera.position.set(0, 0, 1000);
+        limit = camera.position.z;
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
+        scene.add(camera);
+
+        createAst();
+        createPlayer();
+
+        raycaster = new THREE.Raycaster();
+        raycaster.params.Points.threshold = 10;
+
+        mouse = new THREE.Vector2();
+
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('keydown', onKeyDown, false);
+        document.addEventListener('keyup', onKeyUp, false);
+        window.addEventListener('resize', onWindowResize, false );
+
+    }
+
+    function createAst(){
+        geometry = new THREE.Geometry();
+
+        material = new THREE.PointsMaterial({
+            color: 0xff0000,
+            size: 40
+        });
+
+        var loader = new THREE.TextureLoader();
+        var targetTexture = loader.load('/textures/asteriod.png');
+
+        var targetMaterial = new THREE.PointsMaterial({
+            size: 40,
+            color: 0xFFFFFF,
+            map: targetTexture,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+
+        for(var i = 0; i < NUM_VERTEX; i += 10){
+            vertex = new THREE.Vector3(Math.random() * limit - limit * 0.5, Math.random() * limit - limit * 0.5, i);
+            geometry.vertices.push(vertex);
+        }
+
+        asteroids = new THREE.Points(geometry, targetMaterial);
+        scene.add(asteroids);
+    }
+
+    function createPlayer(){
+
+        var tLoader = new THREE.TextureLoader();
+        var aTexture = tLoader.load('/textures/body.png');
+
+        var loader = new THREE.JSONLoader();
+        loader.load( "/models/pleaseWork.json", function(geometry) {
+            var material = new THREE.MeshBasicMaterial({map: aTexture});
+            player = new THREE.Mesh(geometry, material);
+            player.position.z = 990;
+            var newDir = new THREE.Vector3(0, 0, -1);
+            var pos = new THREE.Vector3();
+            pos.addVectors(newDir, player.position);
+            player.lookAt(pos);
+            scene.add(player);
+        });
+    }
+
+    //RENDERING THE SCENE
+    function render() {
+        requestAnimationFrame( render );
+
+        animatePlayer();
+
+        console.log("up =" + up);
+        console.log("right =" + right);
+        console.log("down =" + down);
+        console.log("left =" + left);
+
+        var vertices = asteroids.geometry.vertices;
+
+        for(var i = 0; i < vertices.length; i++){
+            var v = vertices[i];
+            v.z += 2;
+            if(v.z > limit){
+                v.z -= limit;
+                v.x = (Math.random() * 500) - 250;
+                v.y = (Math.random() * 500) - 50;
+            }
+            asteroids.geometry.verticesNeedUpdate = true;
+        }
+
+        raycaster.setFromCamera(mouse, camera);
+
+        intersects = raycaster.intersectObject(asteroids);
+
+        if(intersects.length > 0){
+            geometry.vertices[intersects[0].index].z = -limit;
+            geometry.verticesNeedUpdate = true;
+        }
+
+        renderer.render( scene, camera );
+    }
+
+    function animatePlayer(){
+        if(up == true){
+            player.position.y += playerSpeed;
+        }
+        if(down == true){
+            player.position.y -= playerSpeed;
+        }
+        if(left == true){
+            player.position.x -= playerSpeed;
+        }
+        if(right == true){
+            player.position.x += playerSpeed;
+        }
+    }
+
+    function onWindowResize(){
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        render();
+    }
+
+    function onDocumentMouseDown(event){
+        event.preventDefault();
+
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+
+    }
+
+    function onDocumentMouseMove(event){
+
+        document.getElementById('aim').style.left = event.clientX + 'px';
+
+        document.getElementById('aim').style.top = event.clientY + 'px';
+
+    }
+
+    function onKeyDown(data){
+            switch(data){
+            case 1: //w
+                up = true;
+                break;
+
+            case 2: //a
+                right = true;
+                break;
+
+            case 3: //s
+                down = true;
+                break;
+
+            case 4: //d
+                left = true;
+                break;
+        }
+    }
+
+    function onKeyUp(data){
+        switch(data){
+            case 0: //w
+                up = false;
+                right = false;
+                down = false;
+                left = false;
+                break;
+        }
+    }
+
+</script>
+</body>
+</html>

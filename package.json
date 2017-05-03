@@ -1,0 +1,16 @@
+{
+  "name": "socket-chat-example",
+  "version": "0.0.1",
+  "description": "STARFOX",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3",
+    "body-parser": "^1.5.2",
+    "ejs": "*",
+    "request": "^2.47.0",
+    "serve-favicon": "^2.2.0",
+    "underscore": "^1.7.0",
+    "nodemon": "*"
+
+  }
+}

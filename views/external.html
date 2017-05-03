@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Mobile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="/js/three.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src='/js/socket.io.js'></script>
+
+	<script>
+
+    </script>
+</head>
+<body>
+
+
+	<div data-role="page" id="main">
+		<div data-role="header">
+			<button data-icon="delete">Pause</button>
+			<h1>Game Controller</h1>
+			<button data-icon="check">Resume</button>
+		</div>
+		<div data class="ui-content">
+			<div class="ui-btn ui-input-btn ui-shadow" id="upBtn">
+				<input type="button" data-corners="false" data-icon="arrow-u" data-enhanced="false" onclick="upPressed()"></input>
+			</div>
+
+			<div class="ui-btn ui-input-btn ui-shadow" id="leftBtn">
+				<input type="button" data-corners="false" data-icon="arrow-l" data-enhanced="false" onclick="leftPressed()"></input>
+			</div>
+
+			<div class="ui-btn ui-input-btn ui-shadow" id="rightBtn">
+				<input type="button" data-corners="false" data-icon="arrow-r" data-enhanced="false" onclick="rightPressed()"></input>
+			</div>
+
+			<div class="ui-btn ui-input-btn ui-shadow" id="downBtn">
+				<input type="button" data-corners="false" data-icon="arrow-d" data-enhanced="false" onclick="downPressed()"></input>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+
+
+
+        var socket = io();
+
+
+        letSend();
+
+		function letSend(variable){
+			//requestAnimationFrame(letSend);
+            if(variable == 1){
+                socket.emit('control', 1);
+            }else if(variable == 2){
+                socket.emit('control', 2);
+            }else if(variable == 3){
+                socket.emit('control', 3);
+            }else if(variable == 4){
+                socket.emit('control', 4);
+            }else{
+                socket.emit('control', 0);
+            }
+			setTimeout(function(){
+				letSend();
+			},100);
+		}
+
+
+		function upPressed(){
+		    letSend(1);
+		}
+
+        function rightPressed(){
+			letSend(2);
+        }
+
+        function downPressed(){
+            letSend(3);
+        }
+
+        function leftPressed(){
+            letSend(4);
+        }
+
+
+
+	</script>
+
+
+</body>
+</html>

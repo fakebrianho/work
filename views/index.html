@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Mobile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+	<link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+
+	<div data-role="page" id="main">
+		<div data-role="header">
+			<h1>Bootleg Starfox!</h1>
+		</div>
+		<div data class="ui-content">
+			<p><a href="#setup" data-transition="flip">Setup</a></p>
+			<p><a href="#instructions" data-transition="flip">Instructions</a></p>
+			<p><a href="/a">External Page</a></p>
+			<p><a href="#panel">Panel</a></p>
+
+
+		</div>
+
+		<div data-role="panel" id="panel">
+			<p>Monkey Panel</p>
+			<a href="/" data-rel="close">Close</a>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<!-- <h4>Footer</h4>  -->
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" data-icon="grid">Grid</a></li>
+					<li><a href="#" data-icon="star">Star</a></li>
+					<li><a href="#" data-icon="gear">Gear</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="internal">
+		<div class="ui-content">
+			<p>Internal page content.</p>
+			<p><a href="#main">Home</a></p>
+		</div>
+	</div>
+
+	<div data-role="page" id="setup" data-dialog="true">
+		<p>Go to the webserver and launch it!, once you've launched it return to this app and go to the game tab where you'll be able to to play the game.</p>
+		<p><a href="/" data-transition="flip">Close</a></p>
+	</div>
+
+	<div data-role="page" id="instructions" data-dialog="true">
+		<p>It's your job to navigate starfox through the asteroid belt! Use the D-Pad you'll be provided with to control starfox! Try and survive the longest!</p>
+		<p><a href="/" data-transition="flip">Close</a></p>
+	</div>
+
+</body>
+</html>
