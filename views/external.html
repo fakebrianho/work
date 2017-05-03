@@ -26,19 +26,19 @@
 		</div>
 		<div data class="ui-content">
 			<div class="ui-btn ui-input-btn ui-shadow" id="upBtn">
-				<input type="button" data-corners="false" data-icon="arrow-u" data-enhanced="false" onclick="upPressed()"></input>
+				<input type="button" data-corners="false" data-icon="arrow-u" data-enhanced="false" onmousedown="upPressed()" onmouseup="upReleased()"></input>
 			</div>
 
 			<div class="ui-btn ui-input-btn ui-shadow" id="leftBtn">
-				<input type="button" data-corners="false" data-icon="arrow-l" data-enhanced="false" onclick="leftPressed()"></input>
+				<input type="button" data-corners="false" data-icon="arrow-l" data-enhanced="false" onmousedown="leftPressed()" onmouseup="leftReleased()"></input>
 			</div>
 
 			<div class="ui-btn ui-input-btn ui-shadow" id="rightBtn">
-				<input type="button" data-corners="false" data-icon="arrow-r" data-enhanced="false" onclick="rightPressed()"></input>
+				<input type="button" data-corners="false" data-icon="arrow-r" data-enhanced="false" onmousedown="rightPressed()" onmouseup="rightReleased()"></input>
 			</div>
 
 			<div class="ui-btn ui-input-btn ui-shadow" id="downBtn">
-				<input type="button" data-corners="false" data-icon="arrow-d" data-enhanced="false" onclick="downPressed()"></input>
+				<input type="button" data-corners="false" data-icon="arrow-d" data-enhanced="false" onmousedown="downPressed()" onmouseup="downReleased()"></input>
 			</div>
 		</div>
 	</div>
@@ -46,48 +46,65 @@
 
 	<script>
 
-
-
         var socket = io();
 
-
-        letSend();
-
-		function letSend(variable){
-			//requestAnimationFrame(letSend);
-            if(variable == 1){
-                socket.emit('control', 1);
-            }else if(variable == 2){
-                socket.emit('control', 2);
-            }else if(variable == 3){
-                socket.emit('control', 3);
-            }else if(variable == 4){
-                socket.emit('control', 4);
-            }else{
-                socket.emit('control', 0);
-            }
-			setTimeout(function(){
-				letSend();
-			},100);
-		}
+//		function letSend(variable){
+//			//requestAnimationFrame(letSend);
+//            if(variable == 1){
+//                socket.emit('control', 1);
+//            }else if(variable == 2){
+//                socket.emit('control', 2);
+//            }else if(variable == 3){
+//                socket.emit('control', 3);
+//            }else if(variable == 4){
+//                socket.emit('control', 4);
+//            }else if({
+//                socket.emit('control', 0);
+//            }
+//			setTimeout(function(){
+//				letSend();
+//			},100);
+//		}
 
 
 		function upPressed(){
-		    letSend(1);
+//		    letSend(1);
+		    socket.emit('control', 1);
+		}
+
+		function upReleased(){
+//		    letSend(0);
+            socket.emit('control', 0);
 		}
 
         function rightPressed(){
-			letSend(2);
+//			letSend(2);
+            socket.emit('control', 2);
         }
+
+        function rightReleased(){
+			socket.emit('control', 0);
+
+		}
 
         function downPressed(){
-            letSend(3);
+//            letSend(3);
+			socket.emit('control', 3);
         }
+
+        function downReleased(){
+			socket.emit('control', 0);
+
+		}
 
         function leftPressed(){
-            letSend(4);
+//            letSend(4);
+            socket.emit('control', 4);
         }
 
+        function leftReleased(){
+            socket.emit('control', 0);
+		}
 
 
 	</script>
