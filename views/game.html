@@ -4,6 +4,7 @@
     <meta charset=utf-8>
     <title>My first three.js app</title>
     <link rel="stylesheet" type="text/css" href="/css/style2.css">
+    <!--<link rel="stylesheet" type="text/css" href="../public/css/style2.css">-->
     <style>
         body { margin: 0; }
         canvas { width: 100%; height: 100% }
@@ -14,6 +15,9 @@
 <script src="/js/three.js"></script>
 <script src="/js/socket.io.js"></script>
 <img id="aim" src="/images/crossHair.png" height="75">
+<!--<script src="../public/js/three.js"></script>-->
+<!--<script src="../public/js/socket.io.js"></script>-->
+<!--<img id="aim" src="../public/images/crossHair.png" height="75">-->
 
 <script>
 
@@ -50,7 +54,7 @@
 
     socket.on('sending stop', function(data){
         console.log('stopping');
-        console.log(data);
+//        console.log(data);
         onKeyUp(data);
 
     });
@@ -100,6 +104,7 @@
 
         var loader = new THREE.TextureLoader();
         var targetTexture = loader.load('/textures/asteriod.png');
+//        var targetTexture = loader.load('../public/textures/asteriod.png');
 
         var targetMaterial = new THREE.PointsMaterial({
             size: 40,
@@ -122,9 +127,11 @@
 
         var tLoader = new THREE.TextureLoader();
         var aTexture = tLoader.load('/textures/body.png');
+//        var aTexture = tLoader.load('../public/textures/body.png');
 
         var loader = new THREE.JSONLoader();
         loader.load( "/models/pleaseWork.json", function(geometry) {
+//        loader.load( "../public/models/pleaseWork.json", function(geometry) {
             var material = new THREE.MeshBasicMaterial({map: aTexture});
             player = new THREE.Mesh(geometry, material);
             player.position.z = 990;
@@ -142,10 +149,10 @@
 
         animatePlayer();
 
-        console.log("up =" + up);
-        console.log("right =" + right);
-        console.log("down =" + down);
-        console.log("left =" + left);
+//        console.log("up =" + up);
+//        console.log("right =" + right);
+//        console.log("down =" + down);
+//        console.log("left =" + left);
 
         var vertices = asteroids.geometry.vertices;
 

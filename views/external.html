@@ -6,10 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="../public/css/style.css">
 	<script src="/js/three.js"></script>
+	<!--<script src="../public/js/three.js"></script>-->
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src='/js/socket.io.js'></script>
+	<!--<script type="text/javascript" src='../public/js/socket.io.js'></script>-->
 
 	<script>
 
@@ -70,41 +73,47 @@
 		function upPressed(){
 //		    letSend(1);
 		    socket.emit('control', 1);
+		    console.log('sending up');
 		}
 
 		function upReleased(){
 //		    letSend(0);
             socket.emit('control', 0);
+            console.log('releasing up');
 		}
 
         function rightPressed(){
 //			letSend(2);
             socket.emit('control', 2);
+            console.log('sending right');
         }
 
         function rightReleased(){
 			socket.emit('control', 0);
-
+            console.log('releasing right');
 		}
 
         function downPressed(){
 //            letSend(3);
 			socket.emit('control', 3);
+            console.log('sending down');
         }
 
         function downReleased(){
 			socket.emit('control', 0);
-
+            console.log('releasing down');
 		}
 
         function leftPressed(){
 //            letSend(4);
             socket.emit('control', 4);
+            console.log('sending left');
         }
 
         function leftReleased(){
             socket.emit('control', 0);
-		}
+            console.log('releasing left');
+        }
 
 
 	</script>

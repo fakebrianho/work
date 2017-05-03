@@ -50,8 +50,10 @@ io.on('connection', function(socket){
   });
 
   socket.on('control', function(data) {
+      console.log('receinved');
   	if(data > 0) {
-        socket.broadcast.emit('sending data', data);
+        socket.broadcast.emit('sending data', data)
+        console.log('workied');
     }else{
   	    socket.broadcast.emit('sending stop', 0);
     }
