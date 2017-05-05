@@ -51,81 +51,78 @@
 
         var socket = io();
 
-        var buttonState1 = false;
-
-        var buttonState2 = false;
-
-        var buttonState3 = false;
-
-        var buttonState4 = false;
+//        var buttonState1 = false;
+//
+//        var buttonState2 = false;
+//
+//        var buttonState3 = false;
+//
+//        var buttonState4 = false;
 
         socket.on('canStop', function(data){
 //            console.log('back');
 
-            buttonState1 = true;
-            buttonState2 = true;
-            buttonState3 = true;
-            buttonState4 = true;
+//            buttonState2 = true;
+//            buttonState1 = true;
+//            buttonState3 = true;
+//            buttonState4 = true;
 
 		});
 
 		function upPressed(){
-		    console.log('pressed');
-		    buttonState1 = false;
-            buttonState2 = false;
-            buttonState3 = false;
-            buttonState4 = false;
-		    socket.emit('control', 1);
+//		    buttonState1 = false;
+//            buttonState2 = false;
+//            buttonState3 = false;
+//            buttonState4 = false;
+		    socket.emit('up', 1);
 		}
 
 		function upReleased(){
-			console.log('released');
-            if(buttonState1) {
-                socket.emit('control', 0);
-                console.log('ugh');
-            }
+//            if(buttonState1) {
+                socket.emit('sUp', 0);
+//            }
 		}
 
         function rightPressed() {
-            buttonState1 = false;
-            buttonState2 = false;
-            buttonState3 = false;
-            buttonState4 = false;
-            socket.emit('control', 2);
+//            buttonState1 = false;
+//            buttonState2 = false;
+//            buttonState3 = false;
+//            buttonState4 = false;
+            socket.emit('right', 1);
         }
 
         function rightReleased(){
-    		if(buttonState2){
-				socket.emit('control', 0);
-            }
+//    		if(buttonState2){
+				socket.emit('sRight', 0);
+//            }
 		}
 
         function downPressed(){
-            buttonState1 = false;
-            buttonState2 = false;
-            buttonState3 = false;
-            buttonState4 = false;
-			socket.emit('control', 3);
+//            buttonState1 = false;
+//            buttonState2 = false;
+//            buttonState3 = false;
+//            buttonState4 = false;
+			socket.emit('down', 1);
         }
 
         function downReleased(){
-            if(buttonState3){
-				socket.emit('control', 0);
-            }
+//            if(buttonState3){
+				socket.emit('sDown', 0);
+//            }
 		}
 
         function leftPressed(){
-            buttonState1 = false;
-            buttonState2 = false;
-            buttonState3 = false;
-            buttonState4 = false;
-            socket.emit('control', 4);
+//            buttonState1 = false;
+//            buttonState2 = false;
+//            buttonState3 = false;
+//            buttonState4 = false;
+            socket.emit('left', 1);
         }
 
         function leftReleased(){
-            if(buttonState4){
-            	socket.emit('control', 0);
-            }
+//            if(buttonState4){
+            	socket.emit('sLeft', 0);
+//            }
         }
 
 

@@ -29,7 +29,7 @@
     var raycaster, intersects;
 
     var limit;
-    var playerSpeed = 0.3;
+    var playerSpeed = 0;
 
     var NUM_VERTEX = 800;
     var INTERSECTED;
@@ -42,20 +42,64 @@
 
     var socket = io();
 
+    var switcher = 0;
+
     init();
     render();
 
-    socket.on('sending data', function(data){
-        console.log('receiving');
-        console.log(data);
-        onKeyDown(data);
+//    socket.on('sending data', function(data){
+//        console.log('receiving');
+//        console.log(data);
+//        onKeyDown(data);
+//
+//    });
+//
+//    socket.on('sending stop', function(data){
+//        console.log('stopping');
+//        onKeyUp(data);
+//
+//    });
 
+    //start
+    socket.on('sending up', function(data){
+        onKeyDown(data);
+        switcher = 1;
     });
 
-    socket.on('sending stop', function(data){
-        console.log('stopping');
-        onKeyUp(data);
+    socket.on('sending right', function(data){
+        onKeyDown(data);
+        switcher = 2;
+    });
 
+    socket.on('sending left', function(data){
+        onKeyDown(data);
+        switcher = 3;
+    });
+
+    socket.on('sending down', function(data){
+        onKeyDown(data);
+        switcher = 4;
+    });
+
+    //stop
+    socket.on('stopping up', function(data){
+        onKeyUp(data);
+        switcher = 1;
+    });
+
+    socket.on('stopping right', function(data){
+        onKeyUp(data);
+        switcher = 2;
+    });
+
+    socket.on('stopping left', function(data){
+        onKeyUp(data);
+        switcher = 3;
+    });
+
+    socket.on('stopping down', function(data){
+        onKeyUp(data);
+        switcher = 4;
     });
 
     function init(){
@@ -176,19 +220,19 @@
     function animatePlayer(){
         if(up == true){
             player.position.y += playerSpeed;
-            socket.emit('moved', 0);
+//            socket.emit('moved', 0);
         }
         if(down == true){
             player.position.y -= playerSpeed;
-            socket.emit('moved', 0);
+//            socket.emit('moved', 0);
         }
         if(left == true){
             player.position.x -= playerSpeed;
-            socket.emit('moved', 0);
+//            socket.emit('moved', 0);
         }
         if(right == true){
             player.position.x += playerSpeed;
-            socket.emit('moved', 0);
+//            socket.emit('moved', 0);
         }
     }
 
@@ -223,35 +267,46 @@
 
     function onKeyDown(data){
             console.log("keyDowning");
-            switch(data){
+            switch(switcher){
             case 1: //w
                 up = true;
-                console.log("up is" + up);
+                playerSpeed = data * 0.1;
                 break;
 
             case 2: //a
                 right = true;
-                console.log("left is" + left);
+                playerSpeed = data * 0.1;
                 break;
 
             case 3: //s
-                down = true;
+                left = true;
+                playerSpeed = data * 0.1;
                 break;
 
             case 4: //d
-                left = true;
+                down = true;
+                playerSpeed = data * 0.1;
                 break;
         }
     }
 
     function onKeyUp(data){
-        console.log("keyUp");
-        switch(data){
-            case 0: //w
+        switch(switcher){
+            case 1: //w
                 up = false;
+                playerSpeed = 0;
+                break;
+            case 2: //a
                 right = false;
-                down = false;
+                playerSpeed = 0;
+                break;
+            case 3: //s
                 left = false;
+                playerSpeed = 0;
+                break;
+            case 4: //d
+                down = false;
+                playerSpeed = 0;
                 break;
         }
     }

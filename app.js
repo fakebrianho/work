@@ -49,19 +49,54 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 
-  socket.on('control', function(data) {
-      console.log('receinved');
-  	if(data > 0) {
-        socket.broadcast.emit('sending data', data);
-        console.log('workied');
-    }else{
-  	    socket.broadcast.emit('sending stop', 0);
-    }
-  });
+  // socket.on('control', function(data) {
+  //     console.log('receinved');
+  // 	if(data > 0) {
+  //       socket.broadcast.emit('sending data', data);
+  //       console.log('workied');
+  //   }else{
+  // 	    socket.broadcast.emit('sending stop', 0);
+  //   }
+  // });
 
-  socket.on('moved', function(data){
-    socket.broadcast.emit('canStop', data);
-  });
+    //Starting
+
+    socket.on('up', function(data){
+    socket.broadcast.emit('sending up', data);
+    });
+
+    socket.on('left', function(data){
+    socket.broadcast.emit('sending left', data);
+    });
+
+    socket.on('right', function(data){
+    socket.broadcast.emit('sending right', data);
+    });
+
+    socket.on('down', function(data){
+    socket.broadcast.emit('sending down', data);
+    });
+
+    //Stopping
+
+    socket.on('sUp', function(data){
+        socket.broadcast.emit('stopping up', data);
+    });
+
+    socket.on('sLeft', function(data){
+        socket.broadcast.emit('stopping left', data);
+    });
+
+    socket.on('sRight', function(data){
+        socket.broadcast.emit('stopping right', data);
+    });
+
+    socket.on('sDown', function(data){
+        socket.broadcast.emit('stopping down', data);
+    });
+  // socket.on('moved', function(data){
+  //   socket.broadcast.emit('canStop', data);
+  // });
 
 
 });
