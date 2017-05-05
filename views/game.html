@@ -174,22 +174,21 @@
     }
 
     function animatePlayer(){
-        console.log('1');
         if(up == true){
-            console.log('upTrue');
             player.position.y += playerSpeed;
+            socket.emit('moved', 0);
         }
         if(down == true){
             player.position.y -= playerSpeed;
-            console.log('downTrue');
+            socket.emit('moved', 0);
         }
         if(left == true){
             player.position.x -= playerSpeed;
-            console.log('leftTrue');
+            socket.emit('moved', 0);
         }
         if(right == true){
             player.position.x += playerSpeed;
-            console.log('rightTrue');
+            socket.emit('moved', 0);
         }
     }
 

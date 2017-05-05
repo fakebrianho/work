@@ -51,68 +51,65 @@
 
         var socket = io();
 
-//		function letSend(variable){
-//			//requestAnimationFrame(letSend);
-//            if(variable == 1){
-//                socket.emit('control', 1);
-//            }else if(variable == 2){
-//                socket.emit('control', 2);
-//            }else if(variable == 3){
-//                socket.emit('control', 3);
-//            }else if(variable == 4){
-//                socket.emit('control', 4);
-//            }else if({
-//                socket.emit('control', 0);
-//            }
-//			setTimeout(function(){
-//				letSend();
-//			},100);
-//		}
+        var buttonState1 = false;
 
+        var buttonState2 = false;
+
+        var buttonState3 = false;
+
+        var buttonState4 = false;
+
+        socket.on('canStop', function(data){
+
+            buttonState1 = true;
+            buttonState2 = true;
+            buttonState3 = true;
+            buttonState4 = true;
+
+		});
 
 		function upPressed(){
-//		    letSend(1);
+		    buttonState1 = false;
 		    socket.emit('control', 1);
-		    console.log('sending up');
 		}
 
 		function upReleased(){
-//		    letSend(0);
-            socket.emit('control', 0);
-            console.log('releasing up');
+            if(buttonState1) {
+                socket.emit('control', 0);
+            }
 		}
 
-        function rightPressed(){
-//			letSend(2);
-            socket.emit('control', 2);
-            console.log('sending right');
+        function rightPressed() {
+            buttonState1 = false;
+            socket.emit('control', 2);}
         }
 
         function rightReleased(){
-			socket.emit('control', 0);
-            console.log('releasing right');
+    		if(buttonState2){
+				socket.emit('control', 0);
+            }
 		}
 
         function downPressed(){
-//            letSend(3);
+            buttonState1 = false;
 			socket.emit('control', 3);
-            console.log('sending down');
         }
 
         function downReleased(){
-			socket.emit('control', 0);
-            console.log('releasing down');
+            if(buttonState3){
+				socket.emit('control', 0);
+            }
 		}
 
         function leftPressed(){
-//            letSend(4);
+            buttonState1 = false;
             socket.emit('control', 4);
-            console.log('sending left');
         }
 
         function leftReleased(){
-            socket.emit('control', 0);
-            console.log('releasing left');
+            if(buttonState4){
+            	socket.emit('control', 0);
+            }
         }
 
 
