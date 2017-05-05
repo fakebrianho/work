@@ -54,7 +54,6 @@
 
     socket.on('sending stop', function(data){
         console.log('stopping');
-//        console.log(data);
         onKeyUp(data);
 
     });
@@ -149,11 +148,6 @@
 
         animatePlayer();
 
-//        console.log("up =" + up);
-//        console.log("right =" + right);
-//        console.log("down =" + down);
-//        console.log("left =" + left);
-
         var vertices = asteroids.geometry.vertices;
 
         for(var i = 0; i < vertices.length; i++){
@@ -180,6 +174,7 @@
     }
 
     function animatePlayer(){
+
         if(up == true){
             player.position.y += playerSpeed;
         }
@@ -224,6 +219,7 @@
     }
 
     function onKeyDown(data){
+            console.log("keyDowning");
             switch(data){
             case 1: //w
                 up = true;
@@ -244,6 +240,7 @@
     }
 
     function onKeyUp(data){
+        console.log("keyUp");
         switch(data){
             case 0: //w
                 up = false;
