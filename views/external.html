@@ -78,6 +78,7 @@
 		}
 
 		function upReleased(){
+		    	console.log('rele');
             if(buttonState1) {
                 socket.emit('control', 0);
                 console.log('ugh');
