@@ -70,6 +70,9 @@
 
 		function upPressed(){
 		    buttonState1 = false;
+            buttonState2 = false;
+            buttonState3 = false;
+            buttonState4 = false;
 		    socket.emit('control', 1);
 		}
 
@@ -81,7 +84,10 @@
 
         function rightPressed() {
             buttonState1 = false;
-            socket.emit('control', 2);}
+            buttonState2 = false;
+            buttonState3 = false;
+            buttonState4 = false;
+            socket.emit('control', 2);
         }
 
         function rightReleased(){
@@ -92,6 +98,9 @@
 
         function downPressed(){
             buttonState1 = false;
+            buttonState2 = false;
+            buttonState3 = false;
+            buttonState4 = false;
 			socket.emit('control', 3);
         }
 
@@ -103,6 +112,9 @@
 
         function leftPressed(){
             buttonState1 = false;
+            buttonState2 = false;
+            buttonState3 = false;
+            buttonState4 = false;
             socket.emit('control', 4);
         }
 
