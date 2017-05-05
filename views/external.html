@@ -60,7 +60,7 @@
         var buttonState4 = false;
 
         socket.on('canStop', function(data){
-            console.log('back');
+//            console.log('back');
 
             buttonState1 = true;
             buttonState2 = true;
@@ -70,6 +70,7 @@
 		});
 
 		function upPressed(){
+		    console.log('pressed');
 		    buttonState1 = false;
             buttonState2 = false;
             buttonState3 = false;
@@ -78,7 +79,7 @@
 		}
 
 		function upReleased(){
-		    	console.log('rele');
+			console.log('released');
             if(buttonState1) {
                 socket.emit('control', 0);
                 console.log('ugh');
