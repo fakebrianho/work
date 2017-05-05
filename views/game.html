@@ -176,16 +176,20 @@
     function animatePlayer(){
 
         if(up == true){
+            console.log('upTrue');
             player.position.y += playerSpeed;
         }
         if(down == true){
             player.position.y -= playerSpeed;
+            console.log('downTrue');
         }
         if(left == true){
             player.position.x -= playerSpeed;
+            console.log('leftTrue');
         }
         if(right == true){
             player.position.x += playerSpeed;
+            console.log('rightTrue');
         }
     }
 
