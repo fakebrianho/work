@@ -62,6 +62,7 @@
 
     //start
     socket.on('sending up', function(data){
+        console.log('sending up');
         onKeyDown(data);
         switcher = 1;
     });
@@ -83,6 +84,7 @@
 
     //stop
     socket.on('stopping up', function(data){
+        console.log('stopping up');
         onKeyUp(data);
         switcher = 1;
     });
