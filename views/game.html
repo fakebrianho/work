@@ -78,6 +78,7 @@
     });
 
     socket.on('sending down', function(data){
+        console.log('sending down');
         onKeyDown(data);
         switcher = 4;
     });
@@ -100,8 +101,10 @@
     });
 
     socket.on('stopping down', function(data){
+        console.log('stopping down');
         onKeyUp(data);
         switcher = 4;
+        console.log(switcher);
     });
 
     function init(){
