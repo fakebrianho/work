@@ -63,47 +63,54 @@
     //start
     socket.on('sending up', function(data){
         console.log('sending up');
-        onKeyDown(data);
         switcher = 1;
+        onKeyDown(data);
     });
 
     socket.on('sending right', function(data){
-        onKeyDown(data);
         switcher = 2;
+        onKeyDown(data);
+
     });
 
     socket.on('sending left', function(data){
-        onKeyDown(data);
         switcher = 3;
+        onKeyDown(data);
+
     });
 
     socket.on('sending down', function(data){
         console.log('sending down');
-        onKeyDown(data);
         switcher = 4;
+        onKeyDown(data);
+
     });
 
     //stop
     socket.on('stopping up', function(data){
         console.log('stopping up');
-        onKeyUp(data);
         switcher = 1;
+        onKeyUp(data);
+
     });
 
     socket.on('stopping right', function(data){
-        onKeyUp(data);
         switcher = 2;
+        onKeyUp(data);
+
     });
 
     socket.on('stopping left', function(data){
-        onKeyUp(data);
         switcher = 3;
+        onKeyUp(data);
+
     });
 
     socket.on('stopping down', function(data){
         console.log('stopping down');
-        onKeyUp(data);
         switcher = 4;
+        onKeyUp(data);
+        
         console.log(switcher);
     });
 
